@@ -1,0 +1,496 @@
+
+
+
+* {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+}
+
+input,
+textarea {
+	-webkit-touch-callout: auto;
+	-webkit-user-select: auto;
+}
+
+body {
+	position:absolute;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+	background-color:#555;
+}
+* {
+    font-family:'SansationRegular', Arial, sans-serif;
+    letter-spacing: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+}
+
+
+
+.subtext {
+    font-size:0.85em;
+    font-color: #888;
+}
+
+.data-list {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	overflow: hidden;
+	position:relative;
+	background-color: #EDEDED;
+	min-height:100%;
+	
+	
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.data-list ul,
+.data-list li {
+	padding:0;
+	margin:0;
+	border:none;
+}
+
+
+.data-list ul {
+	display:block;
+	width:100%;
+	width:100%;
+	max-width:100%;
+}
+
+.data-list li {
+    cursor:pointer;
+    font-size:1em;
+	padding:1em;
+	padding-left:1em;
+	padding-right:1px;
+	display:block;
+	border-top:1px solid #fff;
+	border-bottom:1px solid #CCC;
+	
+    background-image:url('graphics/more_disclosure.png');
+    background-position:right center;
+    background-repeat:no-repeat;
+}
+
+.listSelected {
+	color:#333;
+	border-top:1px solid #094C99;
+	background-color: #D9D900;
+}
+
+
+/*ViewNavigator Styles*/
+
+.viewNavigator_header {
+    background:#444;
+    color:#444;
+}
+
+.viewNavigator_header_title {
+    color:#white;
+    font-size:1.5em;
+    max-width:65%;
+}
+
+.viewNavigator_backButton {
+    position:absolute;
+    top:5px;
+    left:5px;
+    width:40px;
+    color: rgba(0,0,0,0);
+    height:35px;
+    box-shadow: 0 0 0 0;
+    background: #DEDEDE;
+    border:1px solid #999;
+    padding:0px;
+    border-radius:0px;
+    background-image:url('graphics/back_arrow.png');
+    background-position: 3px center;
+    background-repeat:no-repeat;
+}
+
+@media only screen and (min-width:760px) {
+    .viewNavigator_backButton {
+        text-align:right;
+        vertical-align:middle;
+        padding-right:10px;
+        padding-left:50px;
+        padding-top:9px;
+        height:26px;
+        color: #444;
+    }
+}
+
+.viewNavigator_backButton:active {
+    background-color: #D9D900;
+}
+
+.viewNavigator_content {
+    border-top:1px solid #999;
+    background:#999;
+    color:#444;
+}
+
+.viewNavigator_contentHolder {
+    color:#444;
+    background:#999;
+    border-left:1px solid #999;
+    border-right:1px solid #999;
+}
+
+.viewNavigator_contentHolder > div:first-child {
+    min-height:100%;
+    background:#EDEDED;
+    /*background-image:url('graphics/wheat_bg.png');
+    background-position: top left;
+    background-repeat:repeat;*/
+    border-bottom:1px solid #444;
+    border-top:1px solid #444;
+}
+
+
+/*APPLICATION VIEWS*/
+
+.right {
+    position:absolute;
+    right:0.75em;
+    top:0.5em;
+}
+
+.padded {
+    padding:1em;
+}
+
+.button {
+    padding:.5em;
+    cursor:pointer;
+    border:1px solid #999;
+    background-color: #AAA;
+    color: white;
+    text-decoration:none;
+}
+
+.button:active {
+    background-color: #D9D900;
+}
+
+.heading {
+    background-color: #fff;
+    color:#444;
+    border-bottom:1px solid #999;
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+    -webkit-transform:translate3d(0,0,0);
+}
+
+.warning {
+    background-color: #F2DEDE;
+    color:#B94A48;
+    border:1px solid #EED3D7;
+}
+
+#defaultView {
+    background-image:url('graphics/wheat_bg_nocolor.png');
+    background-position: bottom center;
+    background-repeat:no-repeat;
+}
+
+
+
+@media only screen and (min-width:760px) {
+    #defaultView {
+        background-image:url('graphics/wheat_bg.png');
+    }
+}
+
+#aboutView h2,
+#defaultView h2 {
+    display:block;
+    padding:0em;
+    text-align:center;
+}
+#aboutView div,
+#defaultView div {
+    display:block;
+    padding:1em;
+    padding-top:0em;
+}
+
+#defaultView a {
+    height:100%;
+    display:block;
+    border:1px solid #999;
+    padding:1.25em;
+    text-decoration: none;
+    color:#444;
+    font-size:1em;
+    background:rgba(230,230,230,0.85);
+}
+
+#defaultView a:active {
+    background-color:#D9D900;
+}
+
+#defaultView #nearMe {
+    padding-left:75px;
+    background-image:url('graphics/map_marker.png');
+    background-position: 15px center;
+    background-repeat:no-repeat;
+}
+
+#defaultView #search {
+    padding-left:75px;
+    background-image:url('graphics/search.png');
+    background-position: 5px center;
+    background-repeat:no-repeat;
+}
+
+#defaultView #about {
+    padding-left:75px;
+    background-image:url('graphics/info.png');
+    background-position: 10px center;
+    background-repeat:no-repeat;
+}
+
+
+#findMarketsNearMeView {
+}
+
+#aboutView {
+    padding:1em;
+    padding-top:0em;
+	
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+}
+
+#searchView {
+    padding:1.25em;
+}
+
+.leaflet-popup-content {
+    font-size:1em;
+    margin:05.em;
+    text-align:center;
+}
+
+.leaflet-popup-content a {
+    background:none;
+    border:none;
+    text-align:center;
+}
+
+#marketDetailsView {
+    padding:1.0em;
+}
+
+
+#marketDetailsView h2 {
+    padding:0em;
+    margin:0em;
+}
+
+.paragraph {
+    margin:0px;
+    margin-bottom:1em;
+    border-top:1px solid #CCC;
+    padding-top:1em;
+}
+
+.paragraph_noborder {
+    margin:0px;
+    margin-bottom:1em;
+    border: none;
+    padding-top:1em;
+}
+
+.amenities {
+    min-height:30px;
+    font-size: 1.25em;
+    padding-top:0.25em;
+    padding-left:62px;
+    background-repeat:no-repeat;
+}
+
+#credit_cards {
+    background-image:url('graphics/credit_card.png');
+    background-position: 10px center;
+}
+
+#wic_accepted {
+    background-image:url('graphics/family.png');
+    background-position: 15px center;
+}
+
+#senior {
+    background-image:url('graphics/senior.png');
+    background-position: 24px center;
+}
+
+#snap {
+    background-image:url('graphics/snap.png');
+    background-position: 20px center;
+}
+
+#bakedgoods {
+    background-image:url('graphics/bread.png');
+    background-position: 10px center;
+}
+
+#cheese {
+    background-image:url('graphics/cheese.png');
+    background-position: 7px center;
+}
+
+#arts {
+    background-image:url('graphics/arts.png');
+    background-position: 12px center;
+}
+
+#flowers {
+    background-image:url('graphics/flower.png');
+    background-position: 15px center;
+}
+
+#seafood {
+    background-image:url('graphics/fish.png');
+    background-position: 7px center;
+}
+
+#fruit {
+    background-image:url('graphics/fruit.png');
+    background-position: 15px center;
+}
+
+#herbs {
+    background-image:url('graphics/herb.png');
+    background-position: 15px center;
+}
+
+#vegetables {
+    background-image:url('graphics/vegetables.png');
+    background-position: 16px center;
+}
+
+#honey {
+    background-image:url('graphics/honey.png');
+    background-position: 17px center;
+}
+
+#jams {
+    background-image:url('graphics/jams.png');
+    background-position: 17px center;
+}
+
+#maple {
+    background-image:url('graphics/maple.png');
+    background-position: 17px center;
+}
+
+#nuts {
+    background-image:url('graphics/nuts.png');
+    background-position: 15px center;
+}
+
+#meat {
+    background-image:url('graphics/meat.png');
+    background-position: 10px center;
+}
+
+#plants {
+    background-image:url('graphics/plants.png');
+    background-position: 18px center;
+}
+
+#prepared {
+    background-image:url('graphics/prepared.png');
+    background-position: 15px center;
+}
+
+#soap {
+    background-image:url('graphics/soap.png');
+    background-position: 10px center;
+}
+
+
+
+
+#marketMapView {
+    width:100%;
+    height:100%;
+    position:absolute;
+}
+
+#marketMapView #marketMapContainer{
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    position:absolute;
+}
+
+#marketMapView #footer{
+    top:0px;
+    height:18px;
+    right:0px;
+    position:absolute;
+    padding:1em;
+    padding-right:0.5em;
+	z-index:99;
+}
+
+#search_state {
+    font-size:1.25em;
+    width:100%;
+}
+
+
+#search_searchPhrase {
+    width:96%; 
+    font-size:1.25em;
+}
+
+#searchButton {
+    padding-left:2em;
+    padding-right:2em;
+}
+
+input[type='checkbox'] { 
+    width:2em;
+    height:2em;
+}
+
+label {
+    font-size: .8em;
+    padding:.25em;
+}
+
+.searchfilter{
+    padding:.25em;
+}
+
+.searchfilter .amenities {
+    font-size: 1em;
+}
+
+#geoError{
+    padding:1.25em;
+}
+#geoError div {
+    padding:1.25em;
+    padding-top:0px;
+}

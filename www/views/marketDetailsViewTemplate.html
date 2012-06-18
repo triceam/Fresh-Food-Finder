@@ -1,0 +1,121 @@
+
+<div id="marketDetailsView">
+    <h2>{{marketName}}</h2>
+    
+    <!-- website -->
+    {{#website}}
+    <div class="paragraph">
+        <strong>Website: </strong>
+        <a href="javascript:openExternalURL('{{website}}')" target="_blank">{{website}}</a>
+    </div>
+    {{/website}}
+    
+    
+    <!-- address -->
+    <div class="paragraph">
+        <strong>Location: </strong><br/>
+        {{#street}}
+        {{street}},<br/>
+        {{/street}}
+        {{city}}, {{state}}, {{zip}}<br/><br/>
+        <!-- <a class="button">Search The Web For This Address</a> -->
+        
+        {{#county}}
+        <strong>County: </strong><br/>
+        {{county}}<br/><br/>
+        {{/county}}
+        
+        <!-- location details --->
+        {{#location}}
+        <strong>Notes: </strong><br/>
+        {{location}}<br/><br/>
+        {{/location}}
+        
+        <!-- map location --->
+        {{#y}}
+        Lat: {{y}}, Lng: {{x}}<br/><br/>
+        <a class="button" href="javascript:viewInMap({{index}})">View in Map</a>
+        <a class="button" href="javascript:getDirections({{index}})">Get Directions</a>
+        <!-- <a href="http://maps.google.com/maps?q={{y}},{{x}}" target="_blank">{{y}},{{x}}</a> -->
+        {{/y}}
+    </div>
+    {{#paymentDetail}}
+    <div class="paragraph">
+        <strong>Payment Options: </strong><br/>
+        
+        {{#credit}}
+        <div id="credit_cards" class="amenities">Credit Cards Accepted</div>
+        {{/credit}}
+        {{#wic}}
+        <div id="wic_accepted" class="amenities">WIC Accepted</div>
+        {{/wic}}
+        {{#wiccash}}
+        <div id="wic_accepted" class="amenities">WIC Cash Accepted</div>
+        {{/wiccash}}
+        {{#sfmnp}}
+        <div id="senior" class="amenities">SFMNP Accepted</div>
+        {{/sfmnp}}
+        {{#snap}}
+        <div id="snap" class="amenities">SNAP Accepted</div>
+        {{/snap}}
+        
+    </div>
+    {{/paymentDetail}}
+    
+    {{#productDetail}}
+    <div class="paragraph">
+        
+        <strong>Available Goods: </strong><br/>       
+        {{#bakedgoods}}
+        <div id="bakedgoods" class="amenities">Baked Goods</div>
+        {{/bakedgoods}} 
+        {{#cheese}}
+        <div id="cheese" class="amenities">Cheese</div>
+        {{/cheese}} 
+        {{#crafts}}
+        <div id="arts" class="amenities">Arts &amp; Crafts</div>
+        {{/crafts}} 
+        {{#flowers}}
+        <div id="flowers" class="amenities">Flowers</div>
+        {{/flowers}} 
+        {{#seafood}}
+        <div id="seafood" class="amenities">Seafood</div>
+        {{/seafood}} 
+        {{#fruit}}
+        <div id="fruit" class="amenities">Fruit</div>
+        {{/fruit}} 
+        {{#herbs}}
+        <div id="herbs" class="amenities">Herbs</div>
+        {{/herbs}} 
+        {{#vegetables}}
+        <div id="vegetables" class="amenities">Vegetables</div>
+        {{/vegetables}} 
+        {{#honey}}
+        <div id="honey" class="amenities">Honey</div>
+        {{/honey}} 
+        {{#jams}}
+        <div id="jams" class="amenities">Jams</div>
+        {{/jams}} 
+        {{#maple}}
+        <div id="maple" class="amenities">Maple</div>
+        {{/maple}} 
+        {{#nuts}}
+        <div id="nuts" class="amenities">Nuts</div>
+        {{/nuts}}  
+        {{#meat}}
+        <div id="meat" class="amenities">Meats</div>
+        {{/meat}}  
+        {{#plants}}
+        <div id="plants" class="amenities">Plants</div>
+        {{/plants}}  
+        {{#prepared}}
+        <div id="prepared" class="amenities">Prepared Foods</div>
+        {{/prepared}} 
+        {{#soap}}
+        <div id="soap" class="amenities">Soap</div>
+        {{/soap}} 
+        
+        <div class="subtext">(icons may not reflect actual products available)</div>
+    </div>
+    {{/productDetail}}    
+</div>

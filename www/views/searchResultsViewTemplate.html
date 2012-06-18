@@ -1,0 +1,24 @@
+<div id="searchResultsView" class="data-list" >
+    <div class="padded heading">
+        <a id="mapButton" class="button right">MAP VIEW</a>
+        Results for criteria: <br/>{{criteria}} 
+    </div>
+    
+    {{#overLength}}
+    <div class="padded warning">Please refine your search results, only the first 50 results are displayed.</div>
+    {{/overLength}}
+    
+    <ul>
+        {{#markets}}
+        <li index="{{index}}">
+            <strong>{{marketName}}</strong><br/>
+            {{#street}}
+            {{street}}<br/>
+            {{/street}}
+            {{city}}, {{state}}, {{zip}}
+        </li>
+        {{/markets}}
+    </ul>
+    
+    
+</div>
