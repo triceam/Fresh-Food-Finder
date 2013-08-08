@@ -89,15 +89,16 @@ function onAboutViewClick( event ) {
 }
 
 function onSearchViewClick( event ) {
-    var view = { title: "List",
-             backLabel: (isTablet() ? "Back" : " "),
-             view: viewAssembler.searchView(),
-           };
+    var view = { title: "Search",
+        backLabel: (isTablet() ? "Back" : " "),
+        view: viewAssembler.searchView()
+    };
     window.viewNavigator.pushView( view );
     event.stopPropagation();
     return false;
 }
 
+var geoIterations = 0;
 function onNearbyViewClick( event ) {
 
     var view = { title: "Nearby",
@@ -106,9 +107,16 @@ function onNearbyViewClick( event ) {
     window.viewNavigator.pushView( view );
     
     //acquire location
-    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true });
+    geoIterations = 0;
+    getNearby();
     event.stopPropagation();
     return false;
+}
+
+function getNearby() {
+    //console.log("getNearby")
+    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true });
+    geoIterations++;
 }
 
 var onGeoSuccess = function(position) {
@@ -145,6 +153,12 @@ function onGeoError(error) {
    /* alert('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
      */   
+    
+    if ( geoIterations <= 1 )
+    {
+        getNearby();
+        return;
+    }
        
     //wait for transition complete
     setTimeout( function() {
@@ -162,8 +176,8 @@ function filterMarketsByGeo( latitude, longitude ) {
     var startTime = new Date().getTime();
     for ( var i =0; i < markets.length; i++ )
     {
-        var lat1 = parseFloat(markets[i][9]);
-        var lon1 = parseFloat(markets[i][8]);
+        var lat1 = parseFloat(markets[i][2]);
+        var lon1 = parseFloat(markets[i][1]);
         var lat2 = parseFloat(latitude);
         var lon2 = parseFloat(longitude);
         //console.log( lat1, lon1, lat2, lon2 );
@@ -199,10 +213,7 @@ function toRad(degree)
 
 function scriptSuccess(data, textStatus, jqXHR) {
 	
-	for ( var i=0; i<markets.length; i++ ) {
-	    markets[i].push( i.toString() );
-	}
-	//console.log( "scriptSuccess: " + markets.length );
+	//alert( "scriptSuccess: " + markets.length );
 }
 
 
@@ -239,11 +250,11 @@ function showMarketDetails( item ) {
 function onSearchButtonClick( event ) {
     var criteria = {};
     
-    var fields = ["state", "searchPhrase", 
+    var fields = ["state", "searchPhrase", "schedule",
                   "credit", "wiccash", "sfmnp", "snap",
                   "bakedGoods", "cheese", "crafts",
                   "flowers", "seafood", "fruit", "herbs", "vegetables", "honey", "jams", "maple",
-                  "meat", "nuts", "plants", "soap"];
+                  "meat", "nuts", "plants", "soap" ];
     
     for ( var index in fields ) {
         var field = fields[ index ];
@@ -288,32 +299,46 @@ function filterMarketsBySearchCriteria( criteria ) {
 }
 
 function marketRowMatchesCriteria( row, criteria ) {
+   
+    /*
+    var fields=["fmid","x","y","marketName","street","city","state","zip","location","website","bakedgoods","cheese","crafts","flowers","eggs","seafood","herbs","vegetables","honey","jams","maple","meat","nursery","nuts","plants","poultry","prepared","soap","trees","wine","fruit","credit","wic","wiccash","sfmnp","snap","winter","schedule","details","county","index"];
+   
+    "#item.id#","#item.x#","#item.y#","#item.marketName#","#item.street#","#item.city#","#item.state#","#item.zip#","#item.location#","#item.website#","#item.bakedgoods#","#item.cheese#","#item.crafts#","#item.flowers#","#item.eggs#","#item.seafood#","#item.herbs#","#item.vegetables#","#item.honey#","#item.jams#","#item.maple#","#item.meat#","#item.nursery#","#item.nuts#","#item.plants#","#item.poultry#","#item.prepared#","#item.soap#","#item.trees#","#item.wine#","#item.fruit#","#item.credit#","#item.wic#","#item.wiccash#","#item.sfmnp#","#item.snap#","#item.winter#","#item.schedule#","#item.details#","#item.county#",#item.index#
+    */
     
     //state
     if ( row[6] != criteria.state ) { return false; }
-                  
-    if ( criteria.credit == true )      {    if ( row[11] != "Y" ) return false;    };
-    if ( criteria.wic == true )         {    if ( row[12] != "Y" ) return false;    };
-    if ( criteria.wiccash == true )     {    if ( row[13] != "Y" ) return false;    };
-    if ( criteria.sfmnp == true )       {    if ( row[14] != "Y" ) return false;    };
-    if ( criteria.snap == true )        {    if ( row[15] != "Y" ) return false;    };
     
+    if ( criteria.bakedGoods == true )  {    if ( row[10] != "Y" ) return false;    };
+    if ( criteria.cheese == true )      {    if ( row[11] != "Y" ) return false;    };
+    if ( criteria.crafts == true )      {    if ( row[12] != "Y" ) return false;    };
+    if ( criteria.flowers == true )     {    if ( row[13] != "Y" ) return false;    };
+    if ( criteria.eggs == true )        {    if ( row[14] != "Y" ) return false;    };
+    if ( criteria.seafood == true )     {    if ( row[15] != "Y" ) return false;    };
+    if ( criteria.herbs == true )       {    if ( row[16] != "Y" ) return false;    };
+    if ( criteria.vegetables == true )  {    if ( row[17] != "Y" ) return false;    };
+    if ( criteria.honey == true )       {    if ( row[18] != "Y" ) return false;    };
+    if ( criteria.jams == true )        {    if ( row[19] != "Y" ) return false;    };
+    if ( criteria.maple == true )       {    if ( row[20] != "Y" ) return false;    };
+    if ( criteria.meat == true )        {    if ( row[21] != "Y" ) return false;    };
+    if ( criteria.nuts == true )        {    if ( row[23] != "Y" ) return false;    };
+    if ( criteria.plants == true )      {    if ( row[24] != "Y" ) return false;    }; 
+    if ( criteria.poultry == true )     {    if ( row[25] != "Y" ) return false;    };    
+    if ( criteria.prepared == true )    {    if ( row[26] != "Y" ) return false;    };    
+    if ( criteria.soap == true )        {    if ( row[27] != "Y" ) return false;    };
+    if ( criteria.trees == true )       {    if ( row[28] != "Y" ) return false;    };
+    if ( criteria.wine == true )        {    if ( row[29] != "Y" ) return false;    };
+    if ( criteria.fruit == true )       {    if ( row[30] != "Y" ) return false;    };
     
-    if ( criteria.bakedGoods == true )  {    if ( row[16] != "Y" ) return false;    };
-    if ( criteria.cheese == true )      {    if ( row[17] != "Y" ) return false;    };
-    if ( criteria.crafts == true )      {    if ( row[18] != "Y" ) return false;    };
-    if ( criteria.flowers == true )     {    if ( row[19] != "Y" ) return false;    };
-    if ( criteria.seafood == true )     {    if ( row[20] != "Y" ) return false;    };
-    if ( criteria.fruit == true )       {    if ( row[21] != "Y" ) return false;    };
-    if ( criteria.herbs == true )       {    if ( row[22] != "Y" ) return false;    };
-    if ( criteria.vegetables == true )  {    if ( row[23] != "Y" ) return false;    };
-    if ( criteria.honey == true )       {    if ( row[24] != "Y" ) return false;    };
-    if ( criteria.jams == true )        {    if ( row[25] != "Y" ) return false;    };
-    if ( criteria.maple == true )       {    if ( row[26] != "Y" ) return false;    };
-    if ( criteria.meat == true )        {    if ( row[27] != "Y" ) return false;    };
-    if ( criteria.nuts == true )        {    if ( row[28] != "Y" ) return false;    };
-    if ( criteria.plants == true )      {    if ( row[29] != "Y" ) return false;    };
-    if ( criteria.soap == true )        {    if ( row[31] != "Y" ) return false;    };
+    if ( criteria.credit == true )      {    if ( row[31] != "Y" ) return false;    };
+    if ( criteria.wic == true )         {    if ( row[32] != "Y" ) return false;    };
+    if ( criteria.wiccash == true )     {    if ( row[33] != "Y" ) return false;    };
+    if ( criteria.sfmnp == true )       {    if ( row[34] != "Y" ) return false;    };
+    if ( criteria.snap == true )        {    if ( row[35] != "Y" ) return false;    };
+    
+    if ( criteria.schedule == true ) {    
+        if ( row[37] == "undefined" || row[37] == "" ) return false;    
+    };
     
     //searchString last
     if ( criteria.searchPhrase != undefined && criteria.searchPhrase.length > 0 ) {
@@ -323,13 +348,14 @@ function marketRowMatchesCriteria( row, criteria ) {
             if (!result) {
                 break;
             }
-            var regexp = new RegExp(tokens[i], "i");
             var iterationResult = false;
-            if ( regexp.test( row[1] ) ) { iterationResult = true; };
+            var regexp = new RegExp(tokens[i], "i");
+            if ( regexp.test( row[3] ) ) { iterationResult = true; };
             if ( regexp.test( row[4] ) ) { iterationResult = true; };
             if ( regexp.test( row[5] ) ) { iterationResult = true; };
             if ( regexp.test( row[7] ) ) { iterationResult = true; };
-            if ( regexp.test( row[10] ) ) { iterationResult = true; };
+            if ( regexp.test( row[39] ) ) { iterationResult = true; };
+            
             result = iterationResult && result;
         }
         return result;
@@ -349,10 +375,11 @@ function criteriaToString( criteria ) {
 }
 
 function arrayToMarketObject( arr ) {
-    var fields=["fmid","marketName","website","street","city","county","state","zip","x","y","location","credit","wic","wiccash","sfmnp","snap","bakedgoods","cheese","crafts","flowers","seafood","fruit","herbs","vegetables","honey","jams","maple","meat","nuts","plants","prepared","soap","index"];
+    /*"fmid","marketName","website","street","city","county","state","zip","x","y","location","credit","wic","wiccash","sfmnp","snap","bakedgoods","cheese","crafts","flowers","seafood","fruit","herbs","vegetables","honey","jams","maple","meat","nuts","plants","prepared","soap","index"];*/
+    var fields=["fmid","x","y","marketName","street","city","state","zip","location","website","bakedgoods","cheese","crafts","flowers","eggs","seafood","herbs","vegetables","honey","jams","maple","meat","nursery","nuts","plants","poultry","prepared","soap","trees","wine","fruit","credit","wic","wiccash","sfmnp","snap","winter","schedule","details","county","index"];
     var result = {};
     for ( var index in arr ) {
-        if ( index <= 10 || index >= 32 ) {
+        if ( index <= 9 || index >= 36 ) {
             result[ fields[index] ] = arr[ index ];
         }
         else {
@@ -363,15 +390,61 @@ function arrayToMarketObject( arr ) {
     result.paymentDetail = result.credit || result.wic || result.wicash || result.sfmnp || result.snap;
     result.productDetail = result.bakedgoods || result.cheese || result.crafts || result.flowers || result.seafood || result.fruit || result.herbs || result.vegetables || result.honey || result.jams || result.maple || result.meat || result.nuts || result.plants || result.prepared || result.soap;
     
+    result.marketDetail = (result.detail != undefined && result.detail.length > 0) || (result.location != undefined && result.location.length > 0);
+    
+    if ( !result.paymentDetail && !result.productDetail && !result.marketDetail ) {
+        
+        result.marketDetail = true;
+        result.detail = "unavailable";
+    }
+    
+    if ( result.schedule == "" || result.schedule == undefined ) {
+        result.schedule = "unavailable";
+    }
+    
     return result;
+}
+
+function searchWebForMarket( index ) {
+    var market = arrayToMarketObject( markets[index] );
+    var searchTerm = market.marketName + ", " + market.city + ", " + market.state;
+    webSearch( searchTerm );
+}
+
+function searchWebForAddress( index ) {
+    var market = arrayToMarketObject( markets[index] );
+    var searchTerm = market.street + ", " + market.city + ", " + market.state + ", " + market.zip;
+    webSearch( searchTerm );
+}
+
+function searchWebForStateMarkets( index ) {
+    var market = arrayToMarketObject( markets[index] );
+    var searchTerm = "Farmers Market " + market.state;
+    webSearch( searchTerm );
+}
+
+function webSearch( string ) {
+    openExternalURL( "http://www.google.com/search?hl=en&q=" + string + "&btnG=Google+Search" );
 }
 
 function openExternalURL( url ) {
 
-    var result=confirm("You will leave the Farmers Market Finder App.  Continue?");
-    if (result==true) {
-        window.open( url, '_blank' );
-    }
+    window.open( url, '_blank' );
+    return;
+
+    //PhoneGap API Doesn't exist yet
+    confirmLeaveApp( function( button ) {
+         if (button==2) {
+            var android = navigator.userAgent.search( "Android" ) >= 0;
+            
+            if (android) {
+                navigator.app.loadUrl( url );
+            }
+            else {
+                window.open( url, '_blank' );
+            }
+        }
+    });
 }
 
 function viewInMap( index ) {
@@ -388,24 +461,31 @@ function viewInMap( index ) {
 function getDirections( index ) {
     var market = arrayToMarketObject( markets[index] );
 
-    var result=confirm("You will leave the Farmers Market Finder App.  Continue?");
-    if (result==true) {
-        
-        var win = navigator.userAgent.search( "Windows Phone" ) >= 0;
-        var android = navigator.userAgent.search( "Android" ) >= 0;
-        
-        /*if (win) {
-            window.open( ('maps:' + market.y + ',' + market.x), '_blank' );
-        } 
-        else 
-        */
-        if (android) {
-            navigator.app.loadUrl( 'http://maps.google.com/maps?q=' + market.y + ',' + market.x);
+    openExternalURL('http://maps.google.com/maps?q=' + market.y + ',' + market.x);
+    return;
+
+    //PhoneGap API Doesn't exist yet
+    confirmLeaveApp( function( button ) {
+        if (button==2) {
+            var android = navigator.userAgent.search( "Android" ) >= 0;
+            
+            if (android) {
+                navigator.app.loadUrl( 'http://maps.google.com/maps?q=' + market.y + ',' + market.x);
+            }
+            else {
+                window.open( ('http://maps.google.com/maps?q=' + market.y + ',' + market.x), '_blank' );
+            }
         }
-        else {
-            window.open( ('http://maps.google.com/maps?q=' + market.y + ',' + market.x), '_blank' );
-        }
-    }
+    });
+}
+
+function confirmLeaveApp( callback ) {
+     navigator.notification.confirm(
+        "You will leave the Farmers Market Finder App.  Would you lik to continue?",  
+        callback,              
+        'Confirm',           
+        'No,Yes'          
+    );
 }
 
 
@@ -426,3 +506,15 @@ function onBackKey( event ) {
 }
 
 document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+
+
+function killEvent(event) {
+
+    event.preventDefault;
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) {
+        event.stopImmediatePropagation();
+    }
+    return false;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Fresh Food Finder",
+  "description": "Find local farmer's markets.",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/icons/Icon-128.png"
+  },
+  "developer": {
+    "name": "Andrew Trice",
+    "url": "http://tricedesigns.com"
+  },
+  "default_locale": "en",
+  "permissions": {
+    "geolocation": {
+      "description": "Required for automatic location searching"
+      }
+  },
+  "type": "web"
+}

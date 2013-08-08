@@ -12,8 +12,11 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 .viewNavigator_root {
-	width:100%;
-	height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
 	background-color:666666;
 	overflow:hidden;
 }
@@ -22,8 +25,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	position:absolute;
 	width:100%;
 	height:46px;
-	overflow:hide;
+	overflow:hidden;
 	padding:0px;
+    background:#333;
 }
 
 .viewNavigator_header_backlink {
@@ -70,6 +74,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	position:absolute;
 }
 
+.viewNavigator_headerActions {
+    position: absolute;
+    top:0px;
+    right:0px;
+    padding-top: 8px;
+    padding-right: 10px;
+}
+
 .viewNavigator_content {
 	position:absolute;
 	top:46px;
@@ -81,6 +93,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
     -webkit-transform:translate3d(0,0,0);
+    padding:0px;
+    margin:0px;
+
 }
 
 
@@ -106,18 +121,25 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	left:0px;
 	right:0px;
 	bottom:0px;
-	background-color:white;
 	overflow:auto;
 	padding:0px;
 	margin:0px;
     overflow: hidden;
 	-webkit-overflow-scrolling : touch;
 	min-width:100%;
-	min-height:100%
+	min-height:100%;
+
 
     backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
 
+}
+
+.viewNavigator_contentHolder>div {
+
+    min-height:100%;
+    padding:0px;
+    margin:0px;
 }
 
 .viewNavigator_backface {

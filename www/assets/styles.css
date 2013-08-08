@@ -105,6 +105,7 @@ body {
 
 .viewNavigator_backButton {
     position:absolute;
+    margin-left:5px;
     top:5px;
     left:5px;
     width:40px;
@@ -132,6 +133,7 @@ body {
     }
 }
 
+.viewNavigator_backButton.active,
 .viewNavigator_backButton:active {
     background-color: #D9D900;
 }
@@ -157,6 +159,12 @@ body {
     background-repeat:repeat;*/
     border-bottom:1px solid #444;
     border-top:1px solid #444;
+    
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 }
 
 
@@ -179,6 +187,7 @@ body {
     background-color: #AAA;
     color: white;
     text-decoration:none;
+    display:inline-block;
 }
 
 .button:active {
@@ -238,6 +247,10 @@ body {
     background:rgba(230,230,230,0.85);
 }
 
+.pressed,
+a.active,
+a:active,
+#defaultView a.active,
 #defaultView a:active {
     background-color:#D9D900;
 }
@@ -279,7 +292,8 @@ body {
 }
 
 #searchView {
-    padding:1.25em;
+    padding:0.75em;
+    padding-top:0.5em;
 }
 
 .leaflet-popup-content {
@@ -309,6 +323,48 @@ body {
     margin-bottom:1em;
     border-top:1px solid #CCC;
     padding-top:1em;
+}
+
+.detailsparagraph {
+    margin:0px;
+    margin-bottom:0.5em;
+    margin-top:1em;
+    padding:0px;
+    border: 1px solid #AAA;
+    border-top:none;
+}
+
+.detailsparagraph .heading {
+    font-weight:bold;
+    background-color: #CCC;
+    border-bottom:1px solid #AAA;
+    border-top:1px solid #AAA;
+    padding:0.55em;
+    
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+}
+
+.detailsparagraph .content {
+    font-weight:normal;
+    background-color: #EDEDED;
+    padding:0.5em;
+    overflow:hidden;
+    
+    backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+}
+
+.searchLink {
+    margin-bottom:0.25em;
+    display:block;
+    text-align:center;
 }
 
 .paragraph_noborder {
@@ -427,6 +483,10 @@ body {
 }
 
 
+.tabColumns {
+        columns:290px 2;
+        -webkit-columns:290px 2; /* Safari and Chrome */
+        -moz-columns:290px 2; /* Firefox */}
 
 
 #marketMapView {
@@ -460,14 +520,10 @@ body {
 
 
 #search_searchPhrase {
-    width:96%; 
+    width:92%; 
     font-size:1.25em;
 }
 
-#searchButton {
-    padding-left:2em;
-    padding-right:2em;
-}
 
 input[type='checkbox'] { 
     width:2em;

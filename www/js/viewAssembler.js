@@ -101,13 +101,15 @@ ViewAssembler.prototype.nearbyMarketsView = function( latitude, longitude, marke
         else return 0;
     });
     
-    window.filteredMarkesList = result;    
+    result=result.slice( 0, Math.min(50, result.length));
+    window.filteredMarkesList = result;  
     
     var viewModel = {   latitude: latitude,
                         longitude: longitude,
                         mapWidth: $(window).width(),
                         mapHeight: 100,
-                        markets: result
+                        markets: result,
+                        length: result.length
                     };
     var template = templates.marketsNearMeViewTemplate;
                   
@@ -119,18 +121,23 @@ ViewAssembler.prototype.nearbyMarketsView = function( latitude, longitude, marke
 
 ViewAssembler.prototype.marketDetailsView = function( market ) {
     var template = templates.marketDetailsViewTemplate;
+    market.tablet = isTablet();
     return $( Mustache.to_html(template, market) );
 }
 
 ViewAssembler.prototype.searchView = function () {
-    var el = $( templates.searchViewTemplate );
+    var el = $( Mustache.to_html( templates.searchViewTemplate, {tablet:isTablet()} ) );
     var $state = el.find( "#search_state" );
-    
+
     var states = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virgin Islands","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
     for ( var i in states ) {
-        $state.append($("<option></option>").text(states[i])); 
+        $state.append($("<option></option>").text(states[i]));
     }
-    
+
+    el.find( "#search_state" ).on( "touchstart", function(event){ $("#search_state").focus(); } );
+    el.find( "#searchButton" ).on( "touchstart", function(event){ $("#searchButton").focus(); } );
+
+
     el.find( "#searchButton" ).on( this.CLICK_EVENT, onSearchButtonClick );
     return el;
 }
@@ -149,7 +156,7 @@ ViewAssembler.prototype.searchResultsView = function( marketsArr, criteria ) {
     });
     
     viewModel.overLength = viewModel.markets.length > 50;
-    viewModel.markets = viewModel.markets.slice( 0, Math.min(49, viewModel.markets.length-1));
+    viewModel.markets = viewModel.markets.slice( 0, Math.min(50, viewModel.markets.length));
     
     viewModel.criteria = criteriaToString(criteria);
     window.filteredMarkesList = viewModel.markets;  
@@ -312,14 +319,14 @@ ViewAssembler.prototype.marketMapView = function(market) {
     var template = templates.marketMapViewTemplate;
     var el = $( Mustache.to_html(template, market) );
     setTimeout( function(){
-    var map = new L.Map('map');
+var map = new L.Map('map');
 
-    //cloudmadeUrl = 'http://{s}.tile.cloudmade.com/YOUR-API-KEY/997/256/{z}/{x}/{y}.png',
-    var cloudmadeUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap',
-        cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
-    
-    map.addLayer(cloudmade);
+//cloudmadeUrl = 'http://{s}.tile.cloudmade.com/YOUR-API-KEY/997/256/{z}/{x}/{y}.png',
+var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution = 'Map data &copy; 2011 OpenStreetMap',
+    layer = new L.TileLayer(url, {maxZoom: 18, attribution: attribution});
+
+map.addLayer(layer);
     
 
     var blueMarkerIcon = L.Icon.extend({

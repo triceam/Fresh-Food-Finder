@@ -18,6 +18,7 @@ NoClickDelay.prototype = {
 			case 'touchmove': this.onTouchMove(e); break;
 			case 'touchend': this.onTouchEnd(e); break;
 		}
+        return killEvent(e);
 	},
 
 	onTouchStart: function(e) {
@@ -26,7 +27,7 @@ NoClickDelay.prototype = {
 
 		this.theTarget = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
 		if(this.theTarget.nodeType == 3) this.theTarget = theTarget.parentNode;
-		this.theTarget.className+= ' pressed';
+		this.theTarget.className+= ' active';
 		//alert( this.theTarget.className );
 
 		this.element.addEventListener('touchmove', this, false);
